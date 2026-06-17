@@ -1,0 +1,455 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOkr6J1Zluq6D862ZMlVuj4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/oluchiokoro-debug/colab-git-assignment2-OO/blob/main/Lesson_3_assignment.pynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vgKzkbc5yKAL",
+        "outputId": "2c005ee2-2a80-4c02-d571-72ba3a379e0c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Books in the library:\n",
+            "['Things Fall Apart', 'The Great Gatsby', 'To Kill a Mockingbird', '1984']\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Create an empty list\n",
+        "library = []\n",
+        "\n",
+        "# Add books\n",
+        "library.append(\"Things Fall Apart\")\n",
+        "library.append(\"The Great Gatsby\")\n",
+        "library.append(\"To Kill a Mockingbird\")\n",
+        "library.append(\"1984\")\n",
+        "\n",
+        "print(\"Books in the library:\")\n",
+        "print(library)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Library Catalogue:\")\n",
+        "\n",
+        "for index, book in enumerate(library, start=1):\n",
+        "    print(f\"{index}. {book}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wXIvdLxAyVtu",
+        "outputId": "9e622362-0a65-4754-a296-7d4965b0c4be"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Library Catalogue:\n",
+            "1. Things Fall Apart\n",
+            "2. The Great Gatsby\n",
+            "3. To Kill a Mockingbird\n",
+            "4. 1984\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def check_book(book_name):\n",
+        "    if book_name in library:\n",
+        "        return f\"{book_name} is available.\"\n",
+        "    else:\n",
+        "        return f\"{book_name} is not available.\"\n",
+        "\n",
+        "# Test\n",
+        "print(check_book(\"1984\"))\n",
+        "print(check_book(\"Harry Potter\"))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NybIx_m-yb3M",
+        "outputId": "00edfd8f-4a40-4703-8059-f0b3298a63c1"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1984 is available.\n",
+            "Harry Potter is not available.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "with open(\"books.txt\", \"w\") as file:\n",
+        "    file.write(\"Python Basics\\n\")\n",
+        "    file.write(\"Machine Learning\\n\")\n",
+        "    file.write(\"Artificial Intelligence\\n\")"
+      ],
+      "metadata": {
+        "id": "CUDX-ew-ynRc"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def read_books(filename):\n",
+        "    try:\n",
+        "        with open(filename, \"r\") as file:\n",
+        "            books = file.readlines()\n",
+        "\n",
+        "        print(\"Books from file:\")\n",
+        "        for book in books:\n",
+        "            print(book.strip())\n",
+        "\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"File not found.\")\n",
+        "\n",
+        "# Test\n",
+        "read_books(\"books.txt\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MI5MQWQLytTx",
+        "outputId": "47c49ecf-179f-40fa-ebd2-3d9759d32de1"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Books from file:\n",
+            "Python Basics\n",
+            "Machine Learning\n",
+            "Artificial Intelligence\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pickle"
+      ],
+      "metadata": {
+        "id": "2ex3dqXoy6d_"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "books = [\"Python\", \"AI\", \"Data Science\"]\n",
+        "\n",
+        "with open(\"books.pkl\", \"wb\") as file:\n",
+        "    pickle.dump(books, file)"
+      ],
+      "metadata": {
+        "id": "OBStE47Ky_wQ"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def load_books(filename):\n",
+        "    try:\n",
+        "        with open(filename, \"rb\") as file:\n",
+        "            books = pickle.load(file)\n",
+        "\n",
+        "        print(\"Books loaded:\")\n",
+        "        print(books)\n",
+        "\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"Pickle file not found.\")\n",
+        "\n",
+        "# Test\n",
+        "load_books(\"books.pkl\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HKJfwVXYzE0G",
+        "outputId": "4c367e32-5c93-4d98-afe0-f694bb908928"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Books loaded:\n",
+            "['Python', 'AI', 'Data Science']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import sqlite3"
+      ],
+      "metadata": {
+        "id": "s4lsJX4ZzJjG"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "conn = sqlite3.connect(\"library.db\")\n",
+        "cursor = conn.cursor()\n",
+        "\n",
+        "cursor.execute(\"\"\"\n",
+        "CREATE TABLE IF NOT EXISTS books (\n",
+        "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n",
+        "    title TEXT\n",
+        ")\n",
+        "\"\"\")\n",
+        "\n",
+        "conn.commit()"
+      ],
+      "metadata": {
+        "id": "rIgIOfxHzP3l"
+      },
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def add_book_db(title):\n",
+        "    try:\n",
+        "        cursor.execute(\n",
+        "            \"INSERT INTO books (title) VALUES (?)\",\n",
+        "            (title,)\n",
+        "        )\n",
+        "        conn.commit()\n",
+        "        print(f\"{title} added successfully.\")\n",
+        "\n",
+        "    except sqlite3.Error as e:\n",
+        "        print(\"Database error:\", e)\n",
+        "\n",
+        "# Test\n",
+        "add_book_db(\"Deep Learning\")\n",
+        "add_book_db(\"Python Programming\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Q13IVZP9zSf9",
+        "outputId": "fb9d6ccf-b743-4679-d7be-fbbe0c33770d"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Deep Learning added successfully.\n",
+            "Python Programming added successfully.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cursor.execute(\"SELECT * FROM books\")\n",
+        "\n",
+        "for row in cursor.fetchall():\n",
+        "    print(row)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "PKgQljJRzZCU",
+        "outputId": "ba4b704e-0ed4-4c52-9f4d-f0b193581c5d"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "(1, 'Deep Learning')\n",
+            "(2, 'Python Programming')\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "conn.close()"
+      ],
+      "metadata": {
+        "id": "sedAYmt1zg2L"
+      },
+      "execution_count": 13,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def remove_book(book):\n",
+        "    if book in library:\n",
+        "        library.remove(book)\n",
+        "        print(f\"{book} removed.\")\n",
+        "    else:\n",
+        "        print(\"Book not found.\")\n",
+        "\n",
+        "remove_book(\"1984\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "E9u53VtFzj7H",
+        "outputId": "51681224-a694-4839-86c8-ad908a5c59be"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1984 removed.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def update_book(old, new):\n",
+        "    if old in library:\n",
+        "        index = library.index(old)\n",
+        "        library[index] = new\n",
+        "        print(\"Book updated.\")\n",
+        "    else:\n",
+        "        print(\"Book not found.\")\n",
+        "\n",
+        "update_book(\"The Great Gatsby\", \"The Great Gatsby Revised\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tfQQzkNSzyeD",
+        "outputId": "c36312b7-8784-457d-a489-d77b1e2f89a4"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Book updated.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "while True:\n",
+        "    print(\"\\n1. View Books\")\n",
+        "    print(\"2. Add Book\")\n",
+        "    print(\"3. Exit\")\n",
+        "\n",
+        "    choice = input(\"Choose: \")\n",
+        "\n",
+        "    if choice == \"1\":\n",
+        "        print(library)\n",
+        "\n",
+        "    elif choice == \"2\":\n",
+        "        book = input(\"Enter book name: \")\n",
+        "        library.append(book)\n",
+        "        print(\"Book added.\")\n",
+        "\n",
+        "    elif choice == \"3\":\n",
+        "        print(\"Goodbye!\")\n",
+        "        break\n",
+        "\n",
+        "    else:\n",
+        "        print(\"Invalid choice.\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YsX_g4hZ0Bka",
+        "outputId": "1eaf70bc-7eb0-4ea4-e314-ac83ab180f71"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "1. View Books\n",
+            "2. Add Book\n",
+            "3. Exit\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
